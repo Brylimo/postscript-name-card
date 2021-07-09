@@ -1,0 +1,187 @@
+%!
+/cm { 28.3465 mul } def
+/Helvetica-Bold findfont 12 scalefont setfont
+/backgroundColor {0.0196 0.2235 0.6117} def
+/color { 1 1 1 } def
+/matrix1 matrix def
+
+/box
+{
+    moveto
+    0 0.5 cm rmoveto
+    0 0 0 -0.5 cm 0.5 cm -0.5 cm rcurveto
+    8 cm 0 rlineto
+    0 0 0.5 cm 0 0.5 cm 0.5 cm rcurveto
+    0 4 cm rlineto
+    0 0 0 0.5 cm -0.5 cm 0.5 cm rcurveto
+    -8 cm 0 rlineto
+    0 0 -0.5 cm 0 -0.5 cm -0.5 cm rcurveto
+    closepath
+} def
+
+/background
+{
+    0 0 box
+    gsave
+    0 0 0 setrgbcolor
+    stroke
+    grestore
+    backgroundColor setrgbcolor
+    fill
+} def
+
+/middleLine % 0 0
+{
+    moveto
+    3.5 cm 4 cm rmoveto
+    0 -3 cm rlineto
+    stroke
+} def
+
+/introduction
+{
+    0 0 moveto
+    (Postscript Programmer) stringwidth pop
+    5.5 cm exch sub 2 div 3.5 cm add
+    4 cm 4 cm 39 sub 2 div sub rmoveto
+    gsave
+    (Postscript Programmer) show
+    grestore
+    0 -15 rmoveto
+    (Brylimo) show
+} def
+
+/triangle
+{
+    setrgbcolor
+    1 cm exch add 0.3 cm moveto
+    0 -0.6 cm rlineto
+    3 sqrt 2 div 0.6 cm mul 0.3 cm rlineto
+    closepath
+    fill
+} def
+
+/ear
+{
+    gsave
+    color setrgbcolor
+    matrix1 defaultmatrix pop
+    1 cm 0 moveto
+    currentpoint 12 matrix1 rotate transform
+    1 cm 0.8 cm add 0
+    currentpoint -12 matrix1 rotate transform
+    curveto
+    stroke
+    grestore
+} def
+
+/eyebrow
+{
+    3.5 cm 2 div 2.5 cm 0.5 cm add moveto
+    gsave
+    -0.7 cm 0 rmoveto
+    0.45 cm 0 rlineto
+    stroke
+    grestore
+    0.7 cm 0 rmoveto
+    -0.45 cm 0 rlineto
+    stroke
+} def
+
+/eye
+{
+    newpath
+    3.5 cm 2 div 0.7 cm sub 0.225 cm add 2.5 cm 0.2 cm add 0.05 cm 0 360 arc % left eye
+    fill
+    3.5 cm 2 div 0.7 cm add 0.225 cm sub 2.5 cm 0.2 cm add 0.05 cm 0 360 arc % right eye
+    fill
+} def
+
+/nose
+{
+    newpath
+    3.5 cm 2 div 2.4 cm 0.05 cm 0 360 arc
+    fill
+} def
+
+/mouth
+{
+    newpath
+    3.5 cm 2 div 2.5 cm 0.4 cm -65 -115 arcn
+    3.5 cm 2 div 2.4 cm moveto
+    0 -0.3 cm rlineto
+    stroke
+} def
+
+/crown
+{
+    setrgbcolor
+    1 cm exch add 0.3 cm moveto
+    0 -0.6 cm rlineto
+    3 sqrt 2 div 0.6 cm mul 0.3 cm rlineto
+    closepath
+    3 sqrt 2 div 0.6 cm mul 0 rlineto
+    3 sqrt 2 div 0.6 cm mul -1 mul -0.3 cm rlineto
+    closepath
+    0 -0.3 cm rmoveto
+    gsave
+    3 sqrt 2 div 0.6 cm mul 0 rlineto
+    stroke
+    grestore
+    0 -0.3 cm rlineto
+    3 sqrt 2 div 0.6 cm mul 0 rlineto
+    closepath
+    stroke
+} def
+
+/lion
+{
+    newpath
+    3.5 cm 2 div 2.5 cm 1 cm 0 360 arc
+    stroke
+    gsave
+    3.5 cm 2 div 2.5 cm translate
+    0 1 12 {
+        /i exch def
+        30 rotate
+        i 1 eq i 3 eq or
+        {
+            ear
+        }
+        { i 2 eq
+            { 5 1 i 10 mul 255 div sub 0.7058 i 10 mul 255 div sub 0.3215 i 10 mul 255 div sub crown }
+            { 5 1 i 10 mul 255 div sub 0.7058 i 10 mul 255 div sub 0.3215 i 10 mul 255 div sub triangle } ifelse
+        } ifelse
+    } for
+    grestore
+    eyebrow
+    eye
+    nose
+    mouth
+} def
+
+/NameCard
+{
+    background
+    color setrgbcolor
+    0 0 middleLine
+    introduction
+    lion
+} def
+
+/PrintCard
+{
+    0 1 2 {
+        /i exch def
+        i
+        gsave
+        1 cm exch 5 cm mul 1 cm add i cm add translate
+        NameCard
+        10 cm 0 translate
+        NameCard
+        grestore
+    } for
+    showpage
+} def
+
+PrintCard
